@@ -2,9 +2,11 @@ import json
 from django.shortcuts import render, redirect
 from .models import Product, Cart, CartItem
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
-
+@login_required(login_url='login')
 def product(request):
     products = Product.objects.all()
     
@@ -14,7 +16,7 @@ def product(request):
     context = {"products":products, "cart": cart}
     return render(request, "products.html", context)
 
-
+@login_required(login_url='login')
 def cart(request):
     
     cart = None
@@ -34,7 +36,7 @@ def add_to_cart(request):
     
     if request.user.is_authenticated:
         cart, created = Cart.objects.get_or_create(user=request.user, completed=False)
-        cartitem, created =CartItem.objects.get_or_create(cart=cart, product=product)
+        cartitem, created = CartItem.objects.get_or_create(cart=cart, product=product)
         cartitem.quantity += 1
         cartitem.save()
         
