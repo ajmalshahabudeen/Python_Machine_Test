@@ -29,6 +29,7 @@ def cart(request):
     context = {"cart":cart, "items":cartitems}
     return render(request, "cart.html", context)
 
+@login_required(login_url='login')
 def add_to_cart(request):
     data = json.loads(request.body)
     product_id = data["id"]
@@ -45,3 +46,13 @@ def add_to_cart(request):
         
         print(cartitem)
     return JsonResponse(num_of_item, safe=False)
+
+@login_required(login_url='login')
+def delete_cart(request):
+    if request.method == 'POST':
+        # Delete the cart for the logged-in user
+        cart = Cart.objects.get(user=request.user)
+        cart.delete()
+        return redirect('cart')  # Redirect to the cart page or any other desired page
+    else:
+        return redirect('cart')  # Redirect to the cart page or any other desired page

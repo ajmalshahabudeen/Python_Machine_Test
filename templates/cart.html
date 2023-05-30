@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block content %}
 
 <div class="shoppingCart">
   <h2>My Cart</h2>
@@ -24,50 +26,16 @@
       <div class="name"><p>{{item.quantity}}</p></div>
       <div class="name"><p>${{item.product.price}}</p></div>
       <div class="name"><p>${{item.price}}</p></div>
+      <div class="addAgain">
+        <button value="{{ product.id }}">Add</button>
+      </div>
+      <div class="delete">
+        <button value="{{ product.id }}">Delete</button>
+      </div>
     </div>
 
     {% endfor %}
   </div>
-
-  {% comment %} <div class="pay-section">
-    <h3>Grand-Total: ${{cart.total_price}}</h3>
-    <button onclick = "makePayment()" >Pay</button>
-  </div>
-</div> {% endcomment %}
-
-{% comment %} <script src="https://checkout.flutterwave.com/v3.js"></script>
-<script>
-
-let cart_total = "{{cart.total_price}}"
-let cart_id = "{{cart.id}}"
-
-
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-PUBLIC KEY",
-      tx_ref: "titanic-48981487343MDI0NzMx",
-      amount: cart_total,
-      currency: "USD",
-      payment_options: "card, mobilemoneyghana, ussd",
-      redirect_url: "http://127.0.0.1:8000/confirm_payment/"+cart_id,
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
-      },
-      customer: {
-        email: "rose@unsinkableship.com",
-        phone_number: "08102909304",
-        name: "{{request.user.username}}",
-      },
-      customizations: {
-        title: "My Shop",
-        description: "Buy with ease",
-        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg",
-      },
-    });
-  }
-
-</script> {% endcomment %}
 
 {% endblock content %}
 
