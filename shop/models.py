@@ -1,32 +1,16 @@
 from django.db import models
-from uuid import uuid4
 
-# Create your models here.
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    description = models.TextField()
 
-
-class Products(models.Model):
-    title = models.CharField(max_length=255)
-    slug = models.SlugField()
-    image = models.ImageField(upload_to='product', unique=True)
-    description = models.TextField(blank=True)
-    unit_price = models.DecimalField(max_digits=6, decimal_places=2)
-    
-    def __str__(self) -> str:
-        return self.title
-    
-    class Meta:
-        ordering = ['title']
-        
+    def __str__(self):
+        return self.name
 
 class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4)
-    created_at = models.DateField(auto_now_add=True)
-    
-class CartItem(models.Model):
-    cart = models.ForeignKey(
-        Cart, on_delete=models.CASCADE, related_name='items'
-    )
-    product = models.ForeignKey(
-        Products, on_delete=models.CASCADE
-        )
-    quantity = models.PositiveBigIntegerField()
+    products = models.ManyToManyField(Product)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Cart {self.id}"
