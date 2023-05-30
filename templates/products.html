@@ -1,19 +1,63 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Product List</title>
 </head>
 <body>
-    <h1>Product List</h1>
-    {% for product in products %}
-        <img src="{{ product.image.url }}" alt="" width="100px">
-        <h2>{{ product.name }}</h2>
-        <p>Price: {{ product.price }}</p>
-        <p>Description: {{ product.description }}</p>
+    <div class="container">
+
+        {% for product in products  %}
+
+        <div class="productContainer">
+            <div class="thumbnail">
+                <img src="{{product.picture.url}}" alt="">
+            </div>
+
+            <div class="action">
+
+                <p>{{product.name}}</p>
+
+                <p>${{product.price}}</p>
+    
+                <button value="{{product.id}}">Add to Cart</button>
+
+            </div>
+           
+
+        </div> 
         
-        <hr>
-    {% empty %}
-        <p>No products available.</p>
-    {% endfor %}
+        {% endfor %}
 </body>
-</html>
+</html> -->
+
+
+
+{% block content %}
+
+    
+    <div class="container">
+
+        {% for product in products  %}
+
+        <div class="productContainer">
+            <div class="thumbnail">
+                <img src="{{ product.picture.url }}" alt="">
+            </div>
+
+            <div class="action">
+
+                <p>{{product.name}}</p>
+
+                <p>${{product.price}}</p>
+    
+                <button value="{{product.id}}">Add to Cart</button>
+
+            </div>
+           
+
+        </div> 
+        
+        {% endfor %}
+{% endblock %}

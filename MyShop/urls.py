@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views
-from shop.views import product_list, cart_detail
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -25,10 +24,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.signnupPage, name='signup'),
     path('login/', views.loginPage, name='login'),
-    path('home/', views.homePage, name='home'),
+    path('home/', views.homePage, name='base'),
     path('logout/', views.logoutPage, name='logout'),
-    path('products/', product_list, name='products'),
-    path('cart/', cart_detail, name='cart'),
+    path('product/', include("shop.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
