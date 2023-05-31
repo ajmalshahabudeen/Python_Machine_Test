@@ -21,7 +21,7 @@ Usage:-
 <hr>
 <h2>Method 3</h2>
 
-1. Go to <a href="http://16.171.19.204:8000/">Live Server</a>
+1. [Live server](http://16.171.19.204:8000/)
 Note: some static files could not be loaded. 
 <hr>
 
