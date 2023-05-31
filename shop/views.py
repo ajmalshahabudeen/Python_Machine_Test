@@ -48,6 +48,22 @@ def add_to_cart(request):
         print(cartitem)
     return JsonResponse(num_of_item, safe=False)
 
+def update_cart(request):
+    cart = Cart.objects.all()[0]
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        pass
+    if not product in cart.products.all():
+        cart.products.remove(product)
+    else:
+        cart.products.remove(product)
+    new_total = 0.00
+    for item in cart.products.all():
+        new_item += item.price
+    cart.total = new_total
+    cart.save()
+
 @login_required(login_url='login')
 def delete_cart(request, id):
     if request.method == 'POST':
@@ -70,17 +86,3 @@ def delete_cart(request, id):
     
     # Redirect to the cart page if the request is not a POST request
     return HttpResponseRedirect(reverse("cart"))
-    
-    # try:
-    #     the_id = request.session['product_id']
-    #     cart = Cart.objects.get(id=the_id)
-    #     print("worked")
-    # except:
-    #     print("failed")
-    #     return HttpResponseRedirect(reverse("cart"))
-    
-    # cartitem = CartItem.objects.get(id=id)
-    # # cartitem.delete()
-    # cartitem.cart = None
-    # cartitem.save()
-    # return HttpResponseRedirect(reverse("cart"))

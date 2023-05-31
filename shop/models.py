@@ -26,7 +26,8 @@ class Cart(models.Model):
         total = sum([item.price for item in cartitems])
         return total
     
-    
+    def __unicode__(self):
+        return "Cart id: %s" %(self.id)
       
     @property
     def num_of_items(self):
