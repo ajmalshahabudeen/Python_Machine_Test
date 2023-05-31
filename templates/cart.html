@@ -30,7 +30,11 @@
         <button value="{{ product.id }}">Add</button>
       </div>
       <div class="delete">
-        <button value="{{ product.id }}">Delete</button>
+        <form action="{% url 'delete_cart' product.id %}" method="post">
+         {% csrf_token %}
+         <button type="submit">Delete</button>
+        </form>
+        {% comment %} <a href="{% url "delete_cart" item.id %}"><button>Delete</button></a> {% endcomment %}
       </div>
     </div>
 

@@ -1,7 +1,8 @@
 import json
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Product, Cart, CartItem
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 
@@ -48,11 +49,38 @@ def add_to_cart(request):
     return JsonResponse(num_of_item, safe=False)
 
 @login_required(login_url='login')
-def delete_cart(request):
+def delete_cart(request, id):
     if request.method == 'POST':
-        # Delete the cart for the logged-in user
-        cart = Cart.objects.get(user=request.user)
-        cart.delete()
-        return redirect('cart')  # Redirect to the cart page or any other desired page
-    else:
-        return redirect('cart')  # Redirect to the cart page or any other desired page
+        try:
+            the_id = request.session['cart_id']
+            cart = Cart.objects.get(id=the_id)
+            print("worked")
+        except Cart.DoesNotExist:
+            print("failed")
+            return HttpResponseRedirect(reverse("cart"))
+        
+        try:
+            cartitem = CartItem.objects.get(id=id)
+            cartitem.cart = None
+            cartitem.save()
+            return HttpResponseRedirect(reverse("cart"))
+        except CartItem.DoesNotExist:
+            # Handle case when the CartItem with the given ID does not exist
+            pass
+    
+    # Redirect to the cart page if the request is not a POST request
+    return HttpResponseRedirect(reverse("cart"))
+    
+    # try:
+    #     the_id = request.session['product_id']
+    #     cart = Cart.objects.get(id=the_id)
+    #     print("worked")
+    # except:
+    #     print("failed")
+    #     return HttpResponseRedirect(reverse("cart"))
+    
+    # cartitem = CartItem.objects.get(id=id)
+    # # cartitem.delete()
+    # cartitem.cart = None
+    # cartitem.save()
+    # return HttpResponseRedirect(reverse("cart"))
