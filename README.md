@@ -21,8 +21,8 @@ Usage:-
 <hr>
 <h2>Method 3</h2>
 
-1. Go to [Live server](http://16.171.19.204:8000)
-- Note: This link is HTTP not HTTPS make sure your browser opens it in http://
+1. Go to [Live server](https://16.171.19.204:8000)
+<!-- - Note: This link is HTTP not HTTPS make sure your browser opens it in http:// -->
 - Note: some static files could not be loaded. 
 <hr>
 
