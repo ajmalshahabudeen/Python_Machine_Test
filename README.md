@@ -28,5 +28,5 @@ Usage:-
 
 Note:
     If it works then
-- username: admin
+- username: admin@gmail.com
 - password: 123123
