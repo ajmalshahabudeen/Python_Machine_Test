@@ -22,7 +22,7 @@ Usage:-
 <h2>Method 3</h2>
 
 1. Go to [Live server](https://ajmaljarvis.pythonanywhere.com/store)
-- Server is now offline 
+<!-- - Server is now offline  -->
 - Note: This link is HTTP not HTTPS make sure your browser opens it in http://
 - Note: some static files could not be loaded. 
 <hr>
